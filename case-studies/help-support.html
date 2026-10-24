@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rebuilding customer support — Jayant Singh Bisht</title>
+  <meta name="description" content="Redesigning SuperInvesting's support from a one-way form into a self-serve help centre, two-way ticket threads and an admin console with AI ticket analysis." />
+  <meta name="theme-color" content="#0c0d0f" />
+  <script>try{const t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" href="/img/jayant.jpg" />
+  <script src="/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to Content</a>
+<main id="main" class="article-wrap article">
+  <div class="article-top"><a class="back" href="/">← Jayant Singh Bisht</a><button class="theme-toggle" type="button" aria-label="Switch theme"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button></div>
+
+  <div data-stagger>
+    <h1 data-reveal>Rebuilding customer support from a dead-end form</h1>
+    <p class="lede" data-reveal>Users had one option: “report a problem”. No answers, no screenshots, and when an agent typed a resolution, the ticket closed without the user ever getting a reply. I redesigned the whole loop.</p>
+  </div>
+  <div class="viz cover-viz" role="img" aria-label="Before: report a problem, agent fix, ticket closed with no reply. After: help centre, ticket with screenshot, two-way thread" data-reveal><svg viewBox="0 0 452 200"><text x="0" y="16" font-size="13">Before</text><rect class="tile" x="0" y="28" width="128" height="44" rx="10"/><text class="" x="64.0" y="55" text-anchor="middle" font-size="14">Report a problem</text><path class="line" d="M134 50h18m-6 -5l6 5l-6 5"/><rect class="tile" x="160" y="28" width="136" height="44" rx="10"/><text class="" x="228.0" y="55" text-anchor="middle" font-size="14">Agent types a fix</text><path class="line" d="M302 50h18m-6 -5l6 5l-6 5"/><rect class="tile dead" x="324" y="28" width="128" height="44" rx="10"/><text class="strike" x="388.0" y="55" text-anchor="middle" font-size="14">Closed, no reply</text><text x="0" y="126" font-size="13">After</text><rect class="tile" x="0" y="138" width="128" height="44" rx="10"/><text class="" x="64.0" y="165" text-anchor="middle" font-size="14">Help centre</text><path class="line-acc" d="M134 160h18m-6 -5l6 5l-6 5"/><rect class="tile" x="160" y="138" width="136" height="44" rx="10"/><text class="" x="228.0" y="165" text-anchor="middle" font-size="14">Ticket + screenshot</text><path class="line-acc" d="M302 160h18m-6 -5l6 5l-6 5"/><rect class="acc" x="324" y="138" width="128" height="44" rx="10"/><text class="on-acc" x="388.0" y="165" text-anchor="middle" font-size="14">Two-way thread</text></svg></div>
+  <div class="facts" data-stagger>
+    <div data-reveal><strong class="num">6</strong><span>self-serve help topics</span></div>
+    <div data-reveal><strong>English + Hindi</strong><span>video guides</span></div>
+    <div data-reveal><strong>Owner</strong><span>the idea and the design</span></div>
+  </div>
+  <div class="prose">
+    <h2>The Problem</h2>
+    <p>Support was a one-way street. The help page was a form, so every question, however simple, became a ticket. Users couldn’t attach a screenshot, so they had to describe charts, errors and portfolio mismatches in words. And the moment an agent typed a resolution, the ticket closed automatically. The user never saw an answer and had no way to say “that didn’t fix it”.</p>
+    <p>On the team’s side, the admin view was a flat list with a single “Resolve” button. There was no sense of which tickets were waiting on us and which were waiting on the customer.</p>
+
+    <h2>What I Designed</h2>
+    <h3>Help before a ticket</h3>
+    <p>A help centre organised around how people use the product: search and chat, AI scores and investor personas, portfolio, stacks and AI baskets, news and watchlist, and the indicator dashboard. Each topic answers the common questions step by step, with short video guides in <strong>English and Hindi</strong>, so users who prefer Hindi get the same help.</p>
+  </div>
+  <figure data-reveal>
+    <img src="/img/help-centre.webp" width="1306" height="744" alt="SuperInvesting help centre with the Your portfolio topic open, showing steps and a video guide with an English and Hindi toggle" loading="lazy" />
+    <figcaption>Each topic answers questions step by step, with a video guide in English or Hindi.</figcaption>
+  </figure>
+  <div class="prose">
+    <h3>Better tickets when help isn’t enough</h3>
+    <p>“Still need help?” sits at the end of every topic, with a call option or a support request. The request is tagged with the topic the user came from, and it accepts a <strong>screenshot</strong>, so the team sees the problem instead of reading about it.</p>
+  </div>
+  <figure data-reveal>
+    <img src="/img/help-report.webp" width="1306" height="744" alt="Report a problem form tagged with the Your portfolio topic, with an Add screenshot button" loading="lazy" />
+    <figcaption>Requests arrive tagged with the topic, with an optional screenshot.</figcaption>
+  </figure>
+  <div class="prose">
+    <h3>Conversations, not closures</h3>
+    <p>Every ticket is now a <strong>two-way thread</strong> in “My Tickets”. Users see the team’s reply, can respond, and a reply to a resolved ticket reopens it. Resolving is no longer the end of the conversation by default.</p>
+    <h3>An admin console built for the queue</h3>
+    <p>The team gets New, Active and Resolved views, an “Awaiting customer” status, message counts, the platform each ticket came from, search, filters, and CSV import and export.</p>
+    <h3>AI ticket analysis</h3>
+    <p>An AI agent reads a snapshot of the ticket queue and surfaces patterns for the team. It runs with read-only access: it can’t edit tickets, run commands or browse the web.</p>
+
+    <p class="pull">Answer what the product can answer, then make every remaining ticket a real conversation.</p>
+
+    <h2>How I’ll Judge It</h2>
+    <ul>
+      <li><strong>Deflection:</strong> how many help-centre visits end without a ticket.</li>
+      <li><strong>Tickets per active user</strong>, to separate support load from growth.</li>
+      <li><strong>Reopen rate</strong>, to see whether resolutions actually resolve.</li>
+      <li><strong>Time to first reply</strong>, now that “awaiting customer” and “awaiting us” are visible.</li>
+    </ul>
+
+    <h2>What I Took Away</h2>
+    <p>Support is part of the product, not a cost centre bolted onto it. The cheapest ticket is the one a good answer prevents, and the worst one is the ticket that closes while the user is still stuck.</p>
+
+    <nav class="pager" aria-label="Case studies">
+      <a class="u" href="/case-studies/ai-cost.html">← AI Cost</a>
+      <a class="u" href="/case-studies/stock-scoring.html">Next: Stock Scoring →</a>
+    </nav>
+  </div>
+  <footer class="page-foot">
+    <a class="link" href="mailto:iamjayant246@gmail.com">iamjayant246@gmail.com</a>
+    <span>© 2026</span>
+  </footer>
+</main>
+</body>
+</html>

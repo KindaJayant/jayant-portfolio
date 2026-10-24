@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SCOPE: rescoring 8,000 stocks for almost nothing — Jayant Singh Bisht</title>
+  <meta name="description" content="Designing SCOPE, an internal AI stock-scoring tool that runs on teammates' own devices and existing AI plans, cutting the cost of a scoring run from about $1,000 to near zero." />
+  <meta name="theme-color" content="#0c0d0f" />
+  <script>try{const t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" href="/img/jayant.jpg" />
+  <script src="/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to Content</a>
+<main id="main" class="article-wrap article">
+  <div class="article-top"><a class="back" href="/">← Jayant Singh Bisht</a><button class="theme-toggle" type="button" aria-label="Switch theme"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button></div>
+
+  <div data-stagger>
+    <h1 data-reveal>SCOPE: rescoring 8,000 stocks for almost nothing</h1>
+    <p class="lede" data-reveal>Every full rescoring of our AI stock scores cost about $1,000, so keeping them fresh was a budget decision. I designed SCOPE, an internal command-line tool that runs the whole scoring pipeline locally on teammates’ devices, using AI plans we already pay for.</p>
+  </div>
+  <div class="viz cover-viz" role="img" aria-label="Scoring cost per run fell from about $1,000 on paid API calls to near zero on teammates' devices using existing AI plans" data-reveal><svg viewBox="0 0 420 220"><line class="line" x1="40" y1="181" x2="380" y2="181"/><rect class="mute" x="80" y="40" width="96" height="140" rx="6"/><text class="big" x="128" y="28" text-anchor="middle" font-size="24">$1,000</text><text x="128" y="206" text-anchor="middle" font-size="14">paid API calls</text><rect class="acc" x="244" y="176" width="96" height="4" rx="2"/><text class="acc-t" x="292" y="164" text-anchor="middle" font-size="24">~$0</text><text x="292" y="206" text-anchor="middle" font-size="14">SCOPE on team devices</text></svg></div>
+  <div class="facts" data-stagger>
+    <div data-reveal><strong class="num">$1,000 → ~$0</strong><span>cost of a scoring run</span></div>
+    <div data-reveal><strong class="num">8,000</strong><span>listed companies it can score</span></div>
+    <div data-reveal><strong>Owner</strong><span>requirements, system design, getting it built</span></div>
+  </div>
+  <div class="prose">
+    <h2>The Problem</h2>
+    <p>A stock score is many model calls: screening, a sector-specific analysis, then a separate pass for each investor persona, and deeper research for the strongest candidates. Paid per call, a full run cost about $1,000. That made rescoring something we rationed, and stale scores are a real problem in a product where prices, results and news move every week.</p>
+
+    <h2>The Framework I Designed</h2>
+    <ol>
+      <li><strong>Red-flag screen.</strong> Regulator actions, auditor exits, promoter pledges and defaults, found in news and filings before anything is scored.</li>
+      <li><strong>Sector rubrics.</strong> Every stock is scored on 10 tenets, weighted by what matters in its sector, so a bank and a cement company aren’t judged the same way.</li>
+      <li><strong>Five investor personas.</strong> Buffett, Lynch, Jhunjhunwala, 100-bagger and CANSLIM each re-score the stock in their own terms.</li>
+      <li><strong>Calibration.</strong> The highest scorers get individual deep research and a re-score before anything is published.</li>
+    </ol>
+    <p class="pull">Models judge; code does the maths. Composites, weights and caps are computed in code, so the same inputs always give the same score.</p>
+
+    <h2>Guardrails</h2>
+    <ul>
+      <li><strong>Don’t pay twice.</strong> A stock whose fundamentals haven’t changed keeps its previous scores.</li>
+      <li><strong>Catch model drift.</strong> A set of anchor stocks is scored first in every run; if they move more than normal noise, the run pauses.</li>
+      <li><strong>Humans approve score changes.</strong> Suggestions that would change how stocks are scored wait for approval, and every score traces back to the rules and model that produced it.</li>
+    </ul>
+
+    <h2>The Decision: A Tool, Not a Service</h2>
+    <p>Instead of another hosted pipeline billed per call, I pushed the team to build an internal CLI. Anyone on the team opens SCOPE and asks it to join a scoring. The work is shared, so no stock is scored twice, and a run picks up where it stopped if a device drops out. It runs on the AI plans the team already has, and you can ask it questions in plain English, like which pharma stocks dropped most since the last run.</p>
+
+    <h2>The Result</h2>
+    <ul>
+      <li>The cost of a scoring run fell from <strong>about $1,000 to near zero</strong>.</li>
+      <li>SCOPE can score the whole registry of <strong>about 8,000 listed companies</strong>, not just the subset we could previously afford.</li>
+      <li>Rescoring is now a routine step instead of a budget decision.</li>
+    </ul>
+
+    <h2>What I Took Away</h2>
+    <p>The expensive part of an AI product is often the plumbing, not the model. Owning the requirements meant asking where the money actually went, and the answer led to a different architecture, not a cheaper model.</p>
+
+    <nav class="pager" aria-label="Case studies">
+      <a class="u" href="/case-studies/help-support.html">← Customer Support</a>
+      <a class="u" href="/#work">All Case Studies →</a>
+    </nav>
+  </div>
+  <footer class="page-foot">
+    <a class="link" href="mailto:iamjayant246@gmail.com">iamjayant246@gmail.com</a>
+    <span>© 2026</span>
+  </footer>
+</main>
+</body>
+</html>
