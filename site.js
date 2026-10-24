@@ -48,13 +48,20 @@
       entry.target.classList.add("in");
       reveal.unobserve(entry.target);
     }
-  }, { rootMargin: "0px 0px -8% 0px" });
+  }, { rootMargin: "0px 0px 15% 0px" });
 
   document.querySelectorAll("[data-reveal]").forEach((el) => {
+    // The first screen gets a quick entrance on load; the rest reveals as you scroll.
     if (el.getBoundingClientRect().top < innerHeight) {
-      requestAnimationFrame(() => el.classList.add("in"));
+      setTimeout(() => el.classList.add("in"), 16);
     } else {
       reveal.observe(el);
     }
+  });
+
+  // Section links jump instantly; show the target section without waiting for a fade.
+  addEventListener("hashchange", () => {
+    const target = location.hash.length > 1 ? document.querySelector(location.hash) : null;
+    target?.querySelectorAll("[data-reveal]").forEach((el) => el.classList.add("in", "now"));
   });
 })();

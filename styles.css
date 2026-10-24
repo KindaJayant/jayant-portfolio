@@ -52,7 +52,7 @@
 body { transition: background-color 0.25s, color 0.25s; }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+html { -webkit-text-size-adjust: 100%; }
 @media (pointer: fine) { html { overscroll-behavior: none; } }
 
 body {
@@ -196,11 +196,12 @@ strong { color: var(--ink); font-weight: 500; }
 .page-foot a:hover { color: var(--accent); }
 
 /* Reveal */
-.js [data-reveal] { opacity: 0; transform: translateY(14px); }
+.js [data-reveal] { opacity: 0; transform: translateY(8px); }
+
 .js [data-reveal].in {
   opacity: 1; transform: none;
-  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(.2,.7,.2,1);
-  transition-delay: calc(var(--i, 0) * 70ms);
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(.2,.7,.2,1);
+  transition-delay: calc(min(var(--i, 0), 3) * 40ms);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -250,3 +251,6 @@ strong { color: var(--ink); font-weight: 500; }
 .viz text.strike { fill: var(--dim); text-decoration: line-through; }
 .viz .dot { fill: var(--accent-ink); }
 .card .thumb.viz { padding: 6% 8%; }
+
+/* Jump links: show the target section with no fade (beats the .in transition) */
+.js [data-reveal].in.now { opacity: 1; transform: none; transition: none; }
