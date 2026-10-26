@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cutting AI cost 90% — Jayant Singh Bisht</title>
-  <meta name="description" content="How I traced a 1.9x jump in AI spend to its real cause and argued for rebuilding SuperInvesting’s AI around one orchestrator." />
+  <meta name="description" content="How I found what each AI question really cost and argued for rebuilding SuperInvesting’s AI around one model with tools." />
   <meta property="og:title" content="Cutting AI cost 90%" />
-  <meta property="og:description" content="How I traced a 1.9x jump in AI spend to its real cause and argued for rebuilding SuperInvesting’s AI around one orchestrator." />
+  <meta property="og:description" content="How I found what each AI question really cost and argued for rebuilding SuperInvesting’s AI around one model with tools." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://jayantsinghbisht.vercel.app/" />
   <meta property="og:image" content="https://jayantsinghbisht.vercel.app/og.jpg" />
@@ -30,9 +30,9 @@
 
   <div data-stagger>
     <h1 data-reveal>Cutting AI cost per question by 90% while usage tripled</h1>
-    <p class="lede" data-reveal>Our AI bill nearly doubled. The obvious explanation was growth. The real one was a supplier price change, and fixing it properly meant rethinking how the product’s AI was built.</p>
+    <p class="lede" data-reveal>We were burning through around $300 of AI credits a day, and the bill grew with every new user. Growth explained the total. It didn’t explain why each question cost so much, and fixing that meant rethinking how the product’s AI was built.</p>
   </div>
-  <div class="viz cover-viz" role="img" aria-label="AI cost per 1,000 questions fell from $48 with seven agents to $5 with one orchestrator" data-reveal><svg viewBox="0 0 420 220"><line class="line" x1="40" y1="181" x2="380" y2="181"/><rect class="mute" x="80" y="40" width="96" height="140" rx="6"/><text class="big" x="128" y="28" text-anchor="middle" font-size="24">$48</text><text x="128" y="206" text-anchor="middle" font-size="14">7 agents</text><rect class="acc" x="244" y="166" width="96" height="14" rx="4"/><text class="acc-t" x="292" y="154" text-anchor="middle" font-size="24">$5</text><text x="292" y="206" text-anchor="middle" font-size="14">1 orchestrator</text></svg></div>
+  <div class="viz cover-viz" role="img" aria-label="AI cost per 1,000 questions fell from $48 with seven agents to $5 with one model and tools" data-reveal><svg viewBox="0 0 420 220"><line class="line" x1="40" y1="181" x2="380" y2="181"/><rect class="mute" x="80" y="40" width="96" height="140" rx="6"/><text class="big" x="128" y="28" text-anchor="middle" font-size="24">$48</text><text x="128" y="206" text-anchor="middle" font-size="14">7 agents</text><rect class="acc" x="244" y="166" width="96" height="14" rx="4"/><text class="acc-t" x="292" y="154" text-anchor="middle" font-size="24">$5</text><text x="292" y="206" text-anchor="middle" font-size="14">1 model + tools</text></svg></div>
   <div class="facts" data-stagger>
     <div data-reveal><strong class="num">$48 → $5</strong><span>cost per 1,000 questions</span></div>
     <div data-reveal><strong class="num">29K → 90K</strong><span>AI questions a month</span></div>
@@ -41,34 +41,36 @@
   <div class="prose">
     <h2>The Problem</h2>
     <p>SuperInvesting answers investing questions about 5,000+ Indian stocks with AI. Every question costs money in model calls, so AI cost is one of our biggest variable costs, and it grows with every user we add.</p>
-    <p>When AI spend jumped <strong>1.9x</strong>, the natural read was “more users, more questions.” Usage was growing, so the story was believable. Accepting it would have meant treating a structural cost problem as a sign of success.</p>
+    <p>We were spending around <strong>$300 of AI credits a day</strong>. Usage was growing fast, so a rising bill was expected, and the total moved in line with users and questions. But a bill that grows with usage is only fine if each question is cheap, and ours wasn’t.</p>
 
-    <h2>Finding the Real Cause</h2>
-    <p>I own AI cost analysis, so I broke the spend down instead of reading the total. Usage growth didn’t explain the jump. The price per call had gone up: <strong>a model provider had raised its prices</strong>.</p>
+    <h2>Where the Money Went</h2>
+    <p>I own AI cost analysis, so I broke the spend down instead of reading the total: how many questions we answered, how many model calls each one needed, and what each call cost. The calls per question were the problem.</p>
+    <p>Our chat ran on an orchestrator and <strong>7 agents</strong>, each one its own LLM with its own custom prompt. For each question the orchestrator picked the agents it needed and usually called several in parallel. Each agent wrote a response, they all went back to the orchestrator, and only then did it write the answer the user saw. One question could mean several LLM calls, with one model writing an answer from other models’ answers.</p>
     <p class="pull">When a cost moves, split it into volume, intensity and price before deciding what the story is.</p>
-
-    <h2>The Issue Underneath</h2>
-    <p>The price hike exposed something more important. Our AI ran as a <strong>7-agent framework</strong>, where several specialised agents handled each question. One user question turned into many model calls, so every upstream price change got multiplied.</p>
 
     <h2>The Options</h2>
     <ol>
       <li><strong>Absorb it.</strong> Keep the architecture and accept higher cost per user, which gets worse with growth.</li>
       <li><strong>Swap the model only.</strong> Quick, but the multiplier stays for the next price change.</li>
-      <li><strong>Rebuild around one orchestrator with tools.</strong> One model decides what to do and calls a stock screener, browser or research tool only when needed. More work, but it removes the multiplier.</li>
+      <li><strong>Rebuild around one model with tools.</strong> One model decides what to do and calls a stock screener, live search or research tool only when it needs them, so it works from raw data instead of other models’ opinions. More work, but it removes the multiplier.</li>
     </ol>
 
     <h2>The Decision</h2>
     <p>I made the case for option 3 first, because it was the main lever on cost, then for a model switch on top of it. Doing it in that order meant we didn’t just swap one expensive setup for a cheaper version of the same problem.</p>
   </div>
   <div class="prose">
+    <h2>Building It</h2>
+    <p>Vaibhav Kumar Singh built the new system and executed it flawlessly. The hardest open question was the new model itself: whether it could use tools, and how well it could use all of them. It could. Along the way the chat got things it never had: a sources button, citations for every news item, and a PDF viewer so official filings and annual reports open in a sidebar inside the app.</p>
+
     <h2>Shipping It Safely</h2>
-    <p>A cheaper system is no good if the answers get worse, and in investing a wrong number costs users real money. I ran the launch testing, checking the new system’s answers before release so the savings didn’t come at the expense of quality.</p>
+    <p>A few people on the team were worried. The predicted drop in cost was so large that they assumed we had to be losing quality somewhere, and in investing a wrong number costs users real money. I ran the testing on staging and locally, eval after eval, and the quality held every time.</p>
 
     <h2>The Result</h2>
     <ul>
       <li><strong>Cost per 1,000 questions fell from $48 to $5</strong>, about 90% lower.</li>
       <li>Over the same period, monthly AI questions grew from <strong>29K to 90K</strong> and paid users from <strong>5.4K to 12.8K</strong>, driven by the Economic Times partnership.</li>
-      <li>Growth now makes the business healthier instead of just making the AI bill bigger.</li>
+      <li>The chat got better too: sources, citations and filings that open in the app.</li>
+      <li>Over a year, the savings are money we can now put into growing the company and the platform.</li>
     </ul>
 
     <h2>What I Took Away</h2>
