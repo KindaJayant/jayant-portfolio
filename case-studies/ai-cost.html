@@ -30,7 +30,7 @@
 
   <div data-stagger>
     <h1 data-reveal>Cutting AI cost per question by 90% while usage tripled</h1>
-    <p class="lede" data-reveal>We were burning through around $300 of AI credits a day, and the bill grew with every new user. Growth explained the total. It didn’t explain why each question cost so much, and fixing that meant rethinking how the product’s AI was built.</p>
+    <p class="lede" data-reveal>We were burning through around $300 of AI credits a day across the product, and the bill grew with every new user. Growth explained the total. It didn’t explain why each question cost so much, and fixing that meant rethinking how the product’s AI was built.</p>
   </div>
   <div class="viz cover-viz" role="img" aria-label="AI cost per 1,000 questions fell from $48 with seven agents to $5 with one model and tools" data-reveal><svg viewBox="0 0 420 220"><line class="line" x1="40" y1="181" x2="380" y2="181"/><rect class="mute" x="80" y="40" width="96" height="140" rx="6"/><text class="big" x="128" y="28" text-anchor="middle" font-size="24">$48</text><text x="128" y="206" text-anchor="middle" font-size="14">7 agents</text><rect class="acc" x="244" y="166" width="96" height="14" rx="4"/><text class="acc-t" x="292" y="154" text-anchor="middle" font-size="24">$5</text><text x="292" y="206" text-anchor="middle" font-size="14">1 model + tools</text></svg></div>
   <div class="facts" data-stagger>
@@ -41,7 +41,7 @@
   <div class="prose">
     <h2>The Problem</h2>
     <p>SuperInvesting answers investing questions about 5,000+ Indian stocks with AI. Every question costs money in model calls, so AI cost is one of our biggest variable costs, and it grows with every user we add.</p>
-    <p>We were spending around <strong>$300 of AI credits a day</strong>. Usage was growing fast, so a rising bill was expected, and the total moved in line with users and questions. But a bill that grows with usage is only fine if each question is cheap, and ours wasn’t.</p>
+    <p>We were spending around <strong>$300 of AI credits a day</strong> across all our AI features, and the investing chat was the one I could change most. Usage was growing fast, so a rising bill was expected, and the total moved in line with users and questions. But a bill that grows with usage is only fine if each question is cheap, and ours wasn’t.</p>
 
     <h2>Where the Money Went</h2>
     <p>I own AI cost analysis, so I broke the spend down instead of reading the total: how many questions we answered, how many model calls each one needed, and what each call cost. The calls per question were the problem.</p>
@@ -77,7 +77,7 @@
         <p class="sc-sentence" data-out="sentence"></p>
       </div>
       <div class="sc-bars" data-out="bars" aria-hidden="true"></div>
-      <p class="sc-note">Averages for the month. The three parts always add up to the change in the bill (log-mean split).</p>
+      <p class="sc-note">Chat questions only, averaged over a month; our other AI features made up the rest of the daily spend. The three parts always add up to the change in the bill (log-mean split).</p>
     </section>
 
     <h2>The Options</h2>
