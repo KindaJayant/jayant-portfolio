@@ -48,6 +48,38 @@
     <p>Our chat ran on an orchestrator and <strong>7 agents</strong>, each one its own LLM with its own custom prompt. For each question the orchestrator picked the agents it needed and usually called several in parallel. Each agent wrote a response, they all went back to the orchestrator, and only then did it write the answer the user saw. One question could mean several LLM calls, with one model writing an answer from other models’ answers.</p>
     <p class="pull">When a cost moves, split it into volume, intensity and price before deciding what the story is.</p>
 
+    <section class="split-calc" data-split aria-labelledby="split-title" data-reveal>
+      <div class="sc-head">
+        <h3 id="split-title">Try the split</h3>
+        <p>Our bill, split into volume, intensity and price. Change any number, or load another case.</p>
+        <div class="sc-presets" role="group" aria-label="Examples">
+          <button type="button" data-preset="rebuild" aria-pressed="true">Our rebuild</button>
+          <button type="button" data-preset="hike" aria-pressed="false">A price hike, same usage</button>
+        </div>
+      </div>
+
+      <div class="sc-grid" role="group" aria-label="Before and after">
+        <span></span><span class="sc-col" id="sc-before">Before</span><span class="sc-col" id="sc-after">After</span>
+        <span class="sc-row-label" id="sc-q">Questions a month <em>volume</em></span>
+        <input type="text" inputmode="numeric" data-k="q0" aria-labelledby="sc-before sc-q" />
+        <input type="text" inputmode="numeric" data-k="q1" aria-labelledby="sc-after sc-q" />
+        <span class="sc-row-label" id="sc-i">LLM calls per question <em>intensity</em></span>
+        <input type="text" inputmode="decimal" data-k="i0" aria-labelledby="sc-before sc-i" />
+        <input type="text" inputmode="decimal" data-k="i1" aria-labelledby="sc-after sc-i" />
+        <span class="sc-row-label" id="sc-p">Cost per 1,000 calls, $ <em>price</em></span>
+        <input type="text" inputmode="decimal" data-k="p0" aria-labelledby="sc-before sc-p" />
+        <input type="text" inputmode="decimal" data-k="p1" aria-labelledby="sc-after sc-p" />
+      </div>
+
+      <div class="sc-out" role="status" aria-live="polite">
+        <p class="sc-label" data-out="label"></p>
+        <p class="sc-total" data-out="total"></p>
+        <p class="sc-sentence" data-out="sentence"></p>
+      </div>
+      <div class="sc-bars" data-out="bars" aria-hidden="true"></div>
+      <p class="sc-note">Averages for the month. The three parts always add up to the change in the bill (log-mean split).</p>
+    </section>
+
     <h2>The Options</h2>
     <ol>
       <li><strong>Absorb it.</strong> Keep the architecture and accept higher cost per user, which gets worse with growth.</li>
@@ -86,5 +118,6 @@
     <span>© 2026</span>
   </footer>
 </main>
+<script type="module" src="/case-studies/split.js"></script>
 </body>
 </html>
